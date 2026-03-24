@@ -3,6 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import FootprintsAnimation from './FootprintsAnimation';
+import { SheepFamily } from './AqiqahDecorations';
 
 /* ── Paper Lanterns ───────────────────────── */
 const lanternColors = ['#e74c3c', '#e67e22', '#f1c40f', '#FFB7C5', '#9b59b6', '#B5EAD7'];
@@ -112,6 +113,11 @@ export default function ClosingSection() {
             Wassalamu&apos;alaikum Warahmatullahi Wabarakatuh
           </p>
         </motion.div>
+
+        {/* ENHANCED: Sheep parade at the bottom */}
+        <div className="mt-12 opacity-30 overflow-hidden">
+          <SheepFamily />
+        </div>
       </div>
     </section>
   );

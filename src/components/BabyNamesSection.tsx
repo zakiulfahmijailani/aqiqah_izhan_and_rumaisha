@@ -4,6 +4,7 @@ import { motion, useAnimationFrame } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useRef } from 'react';
 import { BabyPrayingHands, FloatingStars, IslamicLantern } from '@/components/BabyIllustrations';
+import { CuteSheep, BabyCradle } from '@/components/AqiqahDecorations';
 
 /* ── Orbiting element ─────────────────────── */
 function OrbitingIcon({ radius = 50, speed = 1, children }: { radius?: number; speed?: number; children: React.ReactNode }) {
@@ -136,10 +137,20 @@ export default function BabyNamesSection() {
 
       {/* Single child — centered */}
       <div className="max-w-md mx-auto relative z-10">
-        <div className="flex justify-center gap-8 mb-6 opacity-60">
-          <FloatingStars size={40} delay={0} />
-          <BabyPrayingHands size={50} delay={0.3} />
-          <IslamicLantern size={40} delay={0.6} />
+        {/* ENHANCED: Decorative header row */}
+        <div className="flex justify-center items-end gap-8 mb-8 opacity-50">
+          <CuteSheep size={50} delay={0} />
+          <BabyCradle size={65} delay={0.3} />
+          <CuteSheep size={45} delay={0.6} flip />
+        </div>
+
+        {/* Flanking sheep - left */}
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 opacity-30 hidden md:block">
+          <CuteSheep size={40} delay={0.2} />
+        </div>
+        {/* Flanking sheep - right */}
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-30 hidden md:block">
+          <CuteSheep size={40} delay={0.5} flip />
         </div>
         <motion.div
           className="flex flex-col items-center text-center"

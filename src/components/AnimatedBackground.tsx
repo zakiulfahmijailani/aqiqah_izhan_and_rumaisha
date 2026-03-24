@@ -1,109 +1,69 @@
 'use client';
 import React from 'react';
+import { SheepFamily, CuteSheep, MoonAndStars, FloatingFeather, IslamicStarPattern } from './AqiqahDecorations';
 
-/* 6 floating clouds, 30 twinkling stars, 10 rising bubbles, falling petals */
+/* Enhanced animated background with gradient + layered decorations */
 export default function AnimatedBackground() {
   return (
     <>
-      {/* Animated gradient sky */}
+      {/* Soft gradient background */}
       <div
         className="fixed inset-0 pointer-events-none z-0"
         style={{
-          background:
-            'linear-gradient(135deg, #f0fdf4, #f5f3ff, #fff7ed, #f0f9ff)',
-          backgroundSize: '400% 400%',
-          animation: 'gradientShift 20s ease infinite',
+          background: 'linear-gradient(160deg, #f0fff8 0%, #fff5f7 40%, #fffde7 100%)',
         }}
         aria-hidden="true"
       />
 
-      {/* Floating Clouds */}
+      {/* Layer A — Sheep parade at the bottom */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-        {[0, 3, 6, 9, 12, 15].map((delay, i) => (
-          <svg
-            key={`cloud-${i}`}
-            className="absolute animate-drift motion-reduce:animate-none"
-            style={{
-              top: `${10 + i * 12}%`,
-              animationDelay: `${delay}s`,
-              animationDuration: `${18 + i * 3}s`,
-              opacity: 0.12 + i * 0.02,
-            }}
-            width="120"
-            height="60"
-            viewBox="0 0 120 60"
-          >
-            <ellipse cx="60" cy="40" rx="50" ry="18" fill="#c2c8c7" />
-            <ellipse cx="40" cy="32" rx="30" ry="20" fill="#c2c8c7" />
-            <ellipse cx="80" cy="30" rx="28" ry="18" fill="#c2c8c7" />
-            <ellipse cx="60" cy="25" rx="25" ry="16" fill="#d4e6e5" />
-          </svg>
+        <div className="absolute" style={{ bottom: '5%', left: '-5%', opacity: 0.25 }}>
+          <SheepFamily />
+        </div>
+        <div className="absolute" style={{ bottom: '8%', right: '5%', opacity: 0.2 }}>
+          <CuteSheep size={55} delay={0.5} flip />
+        </div>
+        <div className="absolute" style={{ bottom: '12%', left: '30%', opacity: 0.15 }}>
+          <CuteSheep size={45} delay={1.0} />
+        </div>
+      </div>
+
+      {/* Layer B — Moon and stars in top corners */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute" style={{ top: '3%', right: '3%', opacity: 0.2 }}>
+          <MoonAndStars size={120} delay={0} />
+        </div>
+        <div className="absolute" style={{ top: '5%', left: '3%', opacity: 0.15 }}>
+          <MoonAndStars size={80} delay={1} />
+        </div>
+      </div>
+
+      {/* Layer C — Floating feathers */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+        {[
+          { left: '10%', delay: 0, color: '#B5EAD7' },
+          { left: '25%', delay: 1.5, color: 'white' },
+          { left: '50%', delay: 3, color: '#FFB7C5' },
+          { left: '70%', delay: 0.8, color: '#B5EAD7' },
+          { left: '88%', delay: 2.2, color: 'white' },
+        ].map((f, i) => (
+          <div key={i} className="absolute" style={{ left: f.left, top: '10%', opacity: 0.4 }}>
+            <FloatingFeather size={20} delay={f.delay} color={f.color} />
+          </div>
         ))}
       </div>
 
-      {/* Twinkling Stars */}
+      {/* Layer D — Islamic star clusters */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-        {Array.from({ length: 30 }).map((_, i) => (
-          <svg
-            key={`star-${i}`}
-            className="absolute animate-twinkle motion-reduce:animate-none"
-            style={{
-              left: `${(i * 37 + 13) % 100}%`,
-              top: `${(i * 23 + 7) % 100}%`,
-              animationDelay: `${(i * 100) % 3000}ms`,
-              width: `${6 + (i % 4) * 2}px`,
-              height: `${6 + (i % 4) * 2}px`,
-            }}
-            viewBox="0 0 24 24"
-            fill="#e9c349"
-            fillOpacity={0.25}
-          >
-            <polygon points="12,2 15,10 24,10 17,15 19,24 12,19 5,24 7,15 0,10 9,10" />
-          </svg>
-        ))}
-      </div>
-
-      {/* Rising Bubbles */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-        {Array.from({ length: 10 }).map((_, i) => (
-          <div
-            key={`bubble-${i}`}
-            className="absolute bottom-0 rounded-full animate-rise motion-reduce:animate-none"
-            style={{
-              left: `${(i * 11 + 5) % 100}%`,
-              width: `${12 + i * 3}px`,
-              height: `${12 + i * 3}px`,
-              border: '1.5px solid rgba(233,195,73,0.25)',
-              animationDelay: `${i * 0.8}s`,
-              animationDuration: `${4 + i * 0.5}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Falling Petals */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <svg
-            key={`petal-${i}`}
-            className="absolute motion-reduce:animate-none"
-            style={{
-              left: `${(i * 9 + 3) % 100}%`,
-              top: '-20px',
-              animation: `petalFall ${8 + i * 2}s linear infinite`,
-              animationDelay: `${i * 1.5}s`,
-              opacity: 0.3,
-            }}
-            width="14"
-            height="18"
-            viewBox="0 0 14 18"
-          >
-            <path
-              d="M7 0 C3 4, 0 10, 7 18 C14 10, 11 4, 7 0Z"
-              fill={i % 2 === 0 ? '#FFB7C5' : '#FFDAC1'}
-            />
-          </svg>
-        ))}
+        <div className="absolute" style={{ top: '8%', left: '45%', opacity: 0.15 }}>
+          <IslamicStarPattern size={50} delay={0} />
+        </div>
+        <div className="absolute" style={{ top: '45%', left: '3%', opacity: 0.15 }}>
+          <IslamicStarPattern size={40} delay={0.5} />
+        </div>
+        <div className="absolute" style={{ top: '50%', right: '5%', opacity: 0.15 }}>
+          <IslamicStarPattern size={45} delay={1} />
+        </div>
       </div>
     </>
   );

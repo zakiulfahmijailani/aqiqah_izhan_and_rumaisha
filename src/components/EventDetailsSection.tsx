@@ -131,7 +131,7 @@ export default function EventDetailsSection() {
 
         {/* Time Card */}
         <motion.div
-          className="group bg-surface-container-low/80 backdrop-blur-sm p-8 rounded-2xl border border-transparent transition-shadow hover:shadow-xl"
+          className="group bg-white/80 backdrop-blur-sm p-8 rounded-2xl border border-transparent transition-shadow hover:shadow-xl"
           initial={prefersReduced ? {} : { opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ ...cardTransition, delay: 0.2 }}
@@ -147,7 +147,7 @@ export default function EventDetailsSection() {
 
         {/* Location Card */}
         <motion.div
-          className="md:col-span-2 bg-surface-container-highest/40 backdrop-blur-sm p-8 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+          className="md:col-span-2 bg-white/40 backdrop-blur-sm p-8 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
           initial={prefersReduced ? {} : { opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ ...cardTransition, delay: 0.4 }}

@@ -5,6 +5,7 @@ import confetti from 'canvas-confetti';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import BismillahCalligraphy from '@/components/BismillahCalligraphy';
 import { MuslimBabyBoy, BabyMoon, FloatingStars, IslamicLantern } from '@/components/BabyIllustrations';
+import { MuslimBabyBoySeated, BabyCradle, MoonAndStars, CuteSheep, IslamicStarPattern } from '@/components/AqiqahDecorations';
 
 /* ── Inline SVG Elements ──────────────────── */
 function HotAirBalloon() {
@@ -123,6 +124,29 @@ export default function CoverSection({ onOpen }: CoverSectionProps) {
               </div>
               <div className="absolute top-[45%] right-[20%]">
                 <MuslimBabyBoy size={70} delay={0.8} />
+              </div>
+
+              {/* Dreamland Enhancements */}
+              <div className="absolute" style={{ top: '8%', left: '10%' }}>
+                <MoonAndStars size={90} delay={0} />
+              </div>
+              <div className="absolute" style={{ top: '5%', left: '75%' }}>
+                <IslamicStarPattern size={60} delay={0.5} />
+              </div>
+              <div className="absolute" style={{ top: '40%', left: '5%' }}>
+                <CuteSheep size={65} delay={0.3} />
+              </div>
+              <div className="absolute" style={{ top: '38%', left: '78%' }}>
+                <CuteSheep size={55} delay={0.8} flip />
+              </div>
+              <div className="absolute" style={{ top: '70%', left: '8%' }}>
+                <BabyCradle size={80} delay={0.6} />
+              </div>
+              <div className="absolute" style={{ top: '75%', left: '40%' }}>
+                <MuslimBabyBoySeated size={70} delay={1} />
+              </div>
+              <div className="absolute" style={{ top: '72%', left: '72%' }}>
+                <CuteSheep size={45} delay={1.2} />
               </div>
             </div>
 
