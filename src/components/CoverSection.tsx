@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import BismillahCalligraphy from '@/components/BismillahCalligraphy';
+import { MuslimBabyBoy, BabyMoon, FloatingStars, IslamicLantern } from '@/components/BabyIllustrations';
 
 /* ── Inline SVG Elements ──────────────────── */
 function HotAirBalloon() {
@@ -108,6 +109,20 @@ export default function CoverSection({ onOpen }: CoverSectionProps) {
               </div>
               <div className="absolute top-[50%] left-[50%] -translate-x-1/2">
                 <GiftBox delay={1.6} color="#B5EAD7" />
+              </div>
+
+              {/* Islamic Baby Illustrations */}
+              <div className="absolute top-[8%] left-[50%] -translate-x-1/2">
+                <BabyMoon size={80} delay={0} />
+              </div>
+              <div className="absolute bottom-[10%] left-[15%]">
+                <IslamicLantern size={50} delay={0.5} />
+              </div>
+              <div className="absolute top-[15%] right-[15%]">
+                <FloatingStars size={60} delay={0.3} />
+              </div>
+              <div className="absolute top-[45%] right-[20%]">
+                <MuslimBabyBoy size={70} delay={0.8} />
               </div>
             </div>
 

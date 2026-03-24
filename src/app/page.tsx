@@ -8,6 +8,7 @@ import EventDetailsSection from '@/components/EventDetailsSection';
 import MapsSection from '@/components/MapsSection';
 import RSVPSection from '@/components/RSVPSection';
 import BismillahCalligraphy from '@/components/BismillahCalligraphy';
+import { MuslimBabyBoy, BabyQuran, FloatingBalloons } from '@/components/BabyIllustrations';
 
 import MusicPlayer from '@/components/MusicPlayer';
 import WishesSection from '@/components/WishesSection';
@@ -32,6 +33,13 @@ export default function Home() {
         >
           {/* Default Bismillah Calligraphy */}
           <BismillahCalligraphy size="lg" color="#735c00" className="mb-8" />
+
+          {/* Baby Illustrations */}
+          <div className="flex justify-center items-end gap-6 my-6 opacity-70">
+            <FloatingBalloons size={60} delay={0} />
+            <MuslimBabyBoy size={80} delay={0.4} />
+            <BabyQuran size={55} delay={0.8} />
+          </div>
 
           {/* Hadith */}
           <blockquote className="italic text-gray-500 text-sm md:text-base mb-8 max-w-md mx-auto">

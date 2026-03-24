@@ -3,6 +3,7 @@ import React from 'react';
 import { motion, useAnimationFrame } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useRef } from 'react';
+import { BabyPrayingHands, FloatingStars, IslamicLantern } from '@/components/BabyIllustrations';
 
 /* ── Orbiting element ─────────────────────── */
 function OrbitingIcon({ radius = 50, speed = 1, children }: { radius?: number; speed?: number; children: React.ReactNode }) {
@@ -135,6 +136,11 @@ export default function BabyNamesSection() {
 
       {/* Single child — centered */}
       <div className="max-w-md mx-auto relative z-10">
+        <div className="flex justify-center gap-8 mb-6 opacity-60">
+          <FloatingStars size={40} delay={0} />
+          <BabyPrayingHands size={50} delay={0.3} />
+          <IslamicLantern size={40} delay={0.6} />
+        </div>
         <motion.div
           className="flex flex-col items-center text-center"
           initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
