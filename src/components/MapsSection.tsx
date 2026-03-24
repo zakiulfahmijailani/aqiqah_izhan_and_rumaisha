@@ -78,37 +78,36 @@ export default function MapsSection() {
         <DottedTrail inView={inView} />
       </div>
 
-      {/* Map iframe */}
-      <motion.div
-        className="max-w-5xl mx-auto rounded-2xl overflow-hidden border-4 border-white/80"
+      {/* Map iframe - stable, no animation on the iframe itself */}
+      <div
+        className="relative rounded-2xl overflow-hidden shadow-lg"
         style={{
-          boxShadow: '0 0 20px rgba(233,195,73,0.15), 0 0 40px rgba(233,195,73,0.08)',
-          animation: prefersReduced ? 'none' : 'pulseRing 3s ease-in-out infinite',
+          height: '350px',
+          border: '3px solid #FFD700',
+          boxShadow: '0 0 0 3px #FFD70033',
         }}
-        initial={prefersReduced ? {} : { opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ type: 'spring', bounce: 0.3 }}
-        viewport={{ once: true }}
       >
         <iframe
           src="https://maps.google.com/maps?q=Wisma+Indah+VI+Blok+i+no+2,+Kalumbuk,+Kuranji,+Padang&output=embed&z=16&hl=id"
           width="100%"
-          height="350"
-          style={{ border: 0 }}
+          height="100%"
+          style={{ border: 0, display: 'block' }}
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
+          title="Lokasi Acara Aqiqah"
         />
-      </motion.div>
+      </div>
 
-      {/* CTA button */}
-      <div className="text-center mt-10">
+      {/* Button */}
+      <div className="mt-4 text-center">
         <a
           href="https://maps.app.goo.gl/9Hx2u8dGqbTwvGHR9"
           target="_blank"
           rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition-all duration-200 hover:scale-105"
         >
-          Buka di Google Maps
+          📍 Buka di Google Maps
         </a>
       </div>
     </section>
