@@ -145,7 +145,7 @@ export default function CoverSection({ onOpen }: CoverSectionProps) {
                 </div>
 
                 <p className="font-body text-secondary text-sm max-w-[280px] leading-relaxed">
-                  Kami mengundang Anda untuk hadir dalam syukuran Aqiqah putra-putri kami
+                  Kami mengundang Anda untuk hadir dalam syukuran Aqiqah putra kami
                 </p>
               </motion.div>
 
