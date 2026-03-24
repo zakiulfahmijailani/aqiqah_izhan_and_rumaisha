@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #516161;
+  --color-primary-container: #e0f2f1;
+  --color-on-primary: #ffffff;
+  --color-on-primary-fixed-variant: #3a4a49;
+  --color-secondary: #6b5a60;
+  --color-secondary-container: #f4dce4;
+  --color-tertiary: #735c00;
+  --color-tertiary-container: #ffedc2;
+  --color-tertiary-fixed-dim: #e9c349;
+  --color-surface: #fafaeb;
+  --color-surface-bright: #fafaeb;
+  --color-surface-dim: #dbdbcd;
+  --color-surface-container: #efefe0;
+  --color-surface-container-low: #f4f5e6;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-high: #e9e9db;
+  --color-surface-container-highest: #e3e3d5;
+  --color-on-surface: #1b1c14;
+  --color-on-surface-variant: #424848;
+  --color-outline: #727878;
+  --color-outline-variant: #c2c8c7;
+  --color-error: #ba1a1a;
+
+  --font-headline: 'Noto Serif', serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-label: 'Plus Jakarta Sans', sans-serif;
+
+  /* Custom animations */
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-sway: sway 2.5s ease-in-out infinite;
+  --animate-shimmer: shimmer 3s linear infinite;
+  --animate-twinkle: twinkle 2s ease-in-out infinite;
+  --animate-drift: drift 18s linear infinite;
+  --animate-rise: rise 4s ease-out infinite;
+  --animate-rock-cradle: rockCradle 2s ease-in-out infinite;
+  --animate-pop-lid: popLid 3s ease-in-out infinite;
+  --animate-gradient-shift: gradientShift 8s ease infinite;
+  --animate-walk-across: walkAcross 8s linear forwards;
+  --animate-footstep: footstep 1.5s ease-in-out forwards;
+  --animate-pulse-ring: pulseRing 2s ease-out infinite;
+  --animate-spin-slow: spinSlow 4s linear infinite;
+  --animate-sky-loop: skyLoop 20s ease-in-out infinite;
+}
+
+/* ── Keyframes ────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes sway {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.7); }
+}
+@keyframes drift {
+  0% { transform: translateX(-120px); }
+  100% { transform: translateX(calc(100vw + 120px)); }
+}
+@keyframes rise {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-200px); opacity: 0; }
+}
+@keyframes rockCradle {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+}
+@keyframes popLid {
+  0%, 80%, 100% { transform: translateY(0) rotate(0deg); }
+  90% { transform: translateY(-18px) rotate(-15deg); }
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes walkAcross {
+  0% { transform: translateX(-60px); }
+  100% { transform: translateX(calc(100vw + 60px)); }
+}
+@keyframes footstep {
+  0% { opacity: 0; transform: scale(0); }
+  30% { opacity: 1; transform: scale(1); }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes pulseRing {
+  0% { transform: scale(0.9); opacity: 0.5; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes skyLoop {
+  0% { background-color: #f0fdf4; }
+  25% { background-color: #f5f3ff; }
+  50% { background-color: #fff7ed; }
+  75% { background-color: #f0f9ff; }
+  100% { background-color: #f0fdf4; }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes bounceOpen {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1) rotate(2deg); }
+  100% { transform: scale(0) translateY(-100vh); opacity: 0; }
+}
+@keyframes vinylSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes soundBar {
+  0%, 100% { height: 30%; }
+  50% { height: 100%; }
+}
+@keyframes petalFall {
+  0% { transform: translateY(-20px) translateX(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.8; }
+  100% { transform: translateY(100vh) translateX(80px) rotate(360deg); opacity: 0; }
+}
+
+/* ── Global Styles ────────────────────────── */
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  color: var(--color-on-surface);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body.locked { overflow: hidden; }
+
+::selection {
+  background: var(--color-primary-container);
+  color: var(--color-primary);
+}
+
+/* ── Reduced Motion ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Shimmer Card ─────────────────────────── */
+.shimmer-card {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ── Section Gradients ────────────────────── */
+.section-cover   { background: linear-gradient(135deg, #FFF5F7, #FFF0E6); }
+.section-names   { background: linear-gradient(135deg, #F0FFF4, #E8F8FF); }
+.section-events  { background: linear-gradient(135deg, #FFF8E7, #FEF0FF); }
+.section-maps    { background: linear-gradient(135deg, #E8F8FF, #F0FFF4); }
+.section-gifts   { background: linear-gradient(135deg, #FFF8E7, #FFFBE6); }
+.section-wishes  { background: linear-gradient(135deg, #F5F0FF, #FFF5F7); }
+.section-closing { background: linear-gradient(135deg, #FFF5F7, #F5F0FF); }
+
+/* ── Sound Bars ───────────────────────────── */
+.sound-bar {
+  display: inline-block;
+  width: 3px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  animation: soundBar 0.5s ease-in-out infinite alternate;
+}
+
+/* ── Scrollbar Styling ────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-outline-variant); border-radius: 3px; }
+
+/* ── Clip Triangle for Bunting ────────────── */
+.clip-triangle { clip-path: polygon(0 0, 100% 0, 50% 100%); }

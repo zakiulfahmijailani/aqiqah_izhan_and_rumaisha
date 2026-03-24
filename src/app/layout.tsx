@@ -1,0 +1,23 @@
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "The Celestial Cradle | Aqiqah Izhan & Rumaisha",
+  description:
+    "Undangan Syukuran Aqiqah putra-putri Bapak Zakiul Fahmi Jailani & Ibu Kemala Putri Ayunda, Bapak Tri Rachmat Riski & Ibu Upita Anggunsuri",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="id" className="scroll-smooth">
+      <head>
+        <meta name="theme-color" content="#fafaeb" />
+      </head>
+      <body className="min-h-screen locked">{children}</body>
+    </html>
+  );
+}
