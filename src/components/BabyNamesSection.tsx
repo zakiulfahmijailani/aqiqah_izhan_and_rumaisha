@@ -162,7 +162,7 @@ export default function BabyNamesSection() {
           <p className="font-label text-xs tracking-widest text-secondary uppercase mb-1">
             Laki-laki
           </p>
-          <p className="text-secondary text-sm mb-6">17 Desember 2025</p>
+          <p className="text-secondary text-sm mb-6">Lahir pada tanggal 17 Desember 2025</p>
 
           {/* Parents */}
           <div className="bg-white/60 backdrop-blur-sm rounded-2xl px-6 py-5 shadow-sm w-full">
@@ -214,7 +214,7 @@ export default function BabyNamesSection() {
           <p className="font-label text-xs tracking-widest text-secondary uppercase mb-1">
             Perempuan
           </p>
-          <p className="text-secondary text-sm mb-6">4 Februari 2026</p>
+          <p className="text-secondary text-sm mb-6">Lahir pada tanggal 4 Februari 2026</p>
 
           {/* Parents */}
           <div className="bg-white/60 backdrop-blur-sm rounded-2xl px-6 py-5 shadow-sm w-full">
