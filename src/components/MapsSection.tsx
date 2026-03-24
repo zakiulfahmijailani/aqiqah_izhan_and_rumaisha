@@ -105,7 +105,7 @@ export default function MapsSection() {
       {/* CTA button */}
       <div className="text-center mt-10">
         <a
-          href="https://maps.app.goo.gl/..."
+          href="https://maps.google.com/maps?q=Wisma+Indah+VI+Blok+i+no+2,+Kalumbuk,+Kuranji,+Padang&output=embed"
           target="_blank"
           rel="noopener noreferrer"
           className="group relative inline-flex items-center gap-2 bg-white border border-outline-variant/30 px-10 py-4 rounded-full text-primary font-medium hover:bg-surface transition-all overflow-hidden"

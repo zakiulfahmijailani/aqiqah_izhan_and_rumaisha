@@ -126,7 +126,7 @@ export default function EventDetailsSection() {
             <AnimatedCalendar />
           </div>
           <h4 className="font-label text-[10px] tracking-widest uppercase text-secondary mb-2">Hari &amp; Tanggal</h4>
-          <p className="font-headline text-2xl text-primary">Sabtu, 15 Juni 2024</p>
+          <p className="font-headline text-2xl text-primary">Ahad, 29 Maret 2026</p>
         </motion.div>
 
         {/* Time Card */}
@@ -159,9 +159,11 @@ export default function EventDetailsSection() {
             </div>
             <div>
               <h4 className="font-label text-[10px] tracking-widest uppercase text-secondary mb-2">Tempat &amp; Alamat</h4>
-              <p className="font-headline text-xl text-primary mb-1">Kediaman Keluarga</p>
+              <p className="font-headline text-xl text-primary mb-1">Kediaman Keluarga pak Syafruddin Sulaiman</p>
               <p className="text-secondary text-sm max-w-xs">
-                Jl. Melati No. 123, Kuningan, Karet Kuningan, Setiabudi, Jakarta Selatan
+                Wisma Indah VI Blok i no 2, balai baru,
+                Kel. Kalumbuk, Kec. Kuranji,
+                RT 003/RW 007, Kota Padang (25155)
               </p>
             </div>
           </div>
