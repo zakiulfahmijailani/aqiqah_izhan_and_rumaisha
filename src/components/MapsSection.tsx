@@ -91,32 +91,24 @@ export default function MapsSection() {
         viewport={{ once: true }}
       >
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.273177118023!2d106.8242461750377!3d-6.227655193760596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e012977f89%3A0xc3b5168853b0f58d!2sJl.%20Melati%2C%20RW.3%2C%20Kuningan%2C%20Karet%20Kuningan%2C%20Kecamatan%20Setiabudi%2C%20Kota%20Jakarta%20Selatan%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1716300000000!5m2!1sid!2sid"
+          src="https://maps.google.com/maps?q=Wisma+Indah+VI+Blok+i+no+2,+Kalumbuk,+Kuranji,+Padang&output=embed&z=16&hl=id"
           width="100%"
-          height="400"
+          height="350"
           style={{ border: 0 }}
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          title="Lokasi Acara"
         />
       </motion.div>
 
       {/* CTA button */}
       <div className="text-center mt-10">
         <a
-          href="https://maps.google.com/maps?q=Wisma+Indah+VI+Blok+i+no+2,+Kalumbuk,+Kuranji,+Padang&output=embed"
+          href="https://maps.app.goo.gl/9Hx2u8dGqbTwvGHR9"
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative inline-flex items-center gap-2 bg-white border border-outline-variant/30 px-10 py-4 rounded-full text-primary font-medium hover:bg-surface transition-all overflow-hidden"
         >
-          <svg width="16" height="20" viewBox="0 0 16 20" fill="#357a38" className="group-hover:animate-float">
-            <path d="M8,0 C3.6,0 0,3.6 0,8 C0,14 8,20 8,20 C8,20 16,14 16,8 C16,3.6 12.4,0 8,0Z" />
-            <circle cx="8" cy="8" r="3" fill="#fff" />
-          </svg>
           Buka di Google Maps
-          {/* Pulsing ring */}
-          <span className="absolute inset-0 rounded-full border-2 border-green-400/40 animate-[pulseRing_2s_infinite] pointer-events-none" />
         </a>
       </div>
     </section>
