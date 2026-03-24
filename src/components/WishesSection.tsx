@@ -1,29 +1,12 @@
 'use client';
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
-const PASTEL_COLORS = ['#B5EAD7', '#FFDAC1', '#C7CEEA', '#FFB7C5', '#E2F0CB'];
+type FormState = 'idle' | 'loading' | 'success' | 'error';
 
-/* ── Corner icons (random per card) ───────── */
-function CornerIcon({ type }: { type: number }) {
-  const icons = [
-    // Star
-    <svg key="s" width="16" height="16" viewBox="0 0 24 24" fill="#e9c349" fillOpacity="0.4">
-      <polygon points="12,2 15,10 24,10 17,15 19,24 12,19 5,24 7,15 0,10 9,10" />
-    </svg>,
-    // Heart
-    <svg key="h" width="16" height="16" viewBox="0 0 24 24" fill="#FFB7C5" fillOpacity="0.5">
-      <path d="M12,21 C12,21 3,13 3,8 A5,5,0,0,1,12,5 A5,5,0,0,1,21,8 C21,13 12,21 12,21Z" />
-    </svg>,
-    // Moon
-    <svg key="m" width="16" height="16" viewBox="0 0 24 24" fill="#C7CEEA" fillOpacity="0.5">
-      <path d="M12,2 A10,10,0,0,0,12,22 A7,7,0,0,1,12,2Z" />
-    </svg>,
-  ];
-  return <div className="absolute top-3 right-3">{icons[type % 3]}</div>;
-}
+const PASTEL_COLORS = ['#B5EAD7', '#FFDAC1', '#C7CEEA', '#FFB7C5', '#E2F0CB'];
 
 /* ── Rolling Hills + Flowers ──────────────── */
 function RollingHills() {
@@ -51,128 +34,232 @@ function RollingHills() {
   );
 }
 
-/* ── Wish Card ────────────────────────────── */
-interface Wish {
-  name: string;
-  message: string;
-  time: string;
+/* ── Floating Hearts ──────────────────────── */
+function FloatingHearts() {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      {Array.from({ length: 6 }).map((_, i) => (
+        <svg
+          key={i}
+          className="absolute animate-float motion-reduce:animate-none"
+          style={{
+            left: `${10 + i * 15}%`,
+            top: `${15 + (i % 3) * 25}%`,
+            animationDelay: `${i * 0.6}s`,
+            opacity: 0.12,
+          }}
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="#FFB7C5"
+        >
+          <path d="M12,21 C12,21 3,13 3,8 A5,5,0,0,1,12,5 A5,5,0,0,1,21,8 C21,13 12,21 12,21Z" />
+        </svg>
+      ))}
+    </div>
+  );
 }
 
-const initialWishes: Wish[] = [
-  { name: 'Ustadz Hanan', message: 'Barakallahu lakum fil mauhubi lakum, wa syakartumul wahib, wa balagho asyuddahu, wa ruziqtum birrohu. Semoga menjadi anak yang sholeh & sholehah.', time: '5 Menit lalu' },
-  { name: 'Keluarga Besar Bpk. Surya', message: 'Selamat atas kelahiran putra-putri kembarnya. Semoga Arsyad dan Aisyah tumbuh sehat, cerdas, dan membanggakan orang tua. Aamiin.', time: '1 Jam lalu' },
-];
+/* ── Spinner SVG ──────────────────────────── */
+function Spinner() {
+  return (
+    <svg className="inline-block w-5 h-5 animate-spin ml-2" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" opacity="0.25" />
+      <path d="M12,2 A10,10,0,0,1,22,12" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/* ── Success Card ─────────────────────────── */
+function SuccessCard({ prefersReduced }: { prefersReduced: boolean }) {
+  return (
+    <motion.div
+      className="flex flex-col items-center justify-center text-center py-12 px-6"
+      initial={prefersReduced ? {} : { scale: 0.5, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ type: 'spring', stiffness: 200, damping: 12 }}
+    >
+      {/* Animated heart SVG */}
+      <motion.svg
+        width="72"
+        height="72"
+        viewBox="0 0 24 24"
+        fill="#FFB7C5"
+        className="mb-6"
+        animate={prefersReduced ? {} : { scale: [1, 1.15, 1] }}
+        transition={{ repeat: Infinity, duration: 2 }}
+      >
+        <path d="M12,21 C12,21 3,13 3,8 A5,5,0,0,1,12,5 A5,5,0,0,1,21,8 C21,13 12,21 12,21Z" />
+      </motion.svg>
+
+      <h3 className="font-headline text-2xl text-primary mb-2">
+        Jazakumullahu Khairan! 🤍
+      </h3>
+      <p className="text-secondary text-sm">Ucapan Anda telah terkirim.</p>
+    </motion.div>
+  );
+}
 
 /* ── Main Section ─────────────────────────── */
 export default function WishesSection() {
-  const [wishes, setWishes] = useState<Wish[]>(initialWishes);
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
-  const shakeControls = useAnimation();
+  const [formState, setFormState] = useState<FormState>('idle');
+  const errorShake = useAnimation();
   const prefersReduced = useReducedMotion();
+  const maxLength = 300;
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = async () => {
     if (!name.trim() || !message.trim()) {
-      // Shake
-      shakeControls.start({ x: [-8, 8, -8, 8, 0], transition: { duration: 0.3 } });
+      errorShake.start({ x: [-8, 8, -8, 8, 0], transition: { duration: 0.3 } });
       return;
     }
 
-    // Success confetti
-    confetti({
-      spread: 180,
-      particleCount: 150,
-      origin: { y: 0.3 },
-      colors: ['#FFB7C5', '#B5EAD7', '#C7CEEA', '#FFD700', '#FFDAC1'],
-    });
+    setFormState('loading');
 
-    setWishes((prev) => [
-      { name: name.trim(), message: message.trim(), time: 'Baru saja' },
-      ...prev,
-    ]);
-    setName('');
-    setMessage('');
-  }, [name, message, shakeControls]);
+    try {
+      const response = await fetch('https://formspree.io/f/xreynjaw', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ name: name.trim(), message: message.trim() }),
+      });
+
+      if (response.ok) {
+        setFormState('success');
+        confetti({
+          spread: 180,
+          particleCount: 150,
+          origin: { y: 0.4 },
+          colors: ['#FFB7C5', '#B5EAD7', '#C7CEEA', '#FFD700'],
+        });
+      } else {
+        setFormState('error');
+        errorShake.start({ x: [-8, 8, -8, 8, 0], transition: { duration: 0.3 } });
+      }
+    } catch {
+      setFormState('error');
+      errorShake.start({ x: [-8, 8, -8, 8, 0], transition: { duration: 0.3 } });
+    }
+  };
 
   return (
-    <section className="section-wishes px-6 py-24 relative overflow-hidden">
+    <section
+      className="px-4 py-20 relative overflow-hidden"
+      style={{ background: 'linear-gradient(135deg, #F5F0FF, #FFF5F7)' }}
+    >
       <RollingHills />
+      <FloatingHearts />
 
-      <div className="max-w-4xl mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <motion.h2
-            className="font-headline text-3xl md:text-4xl text-primary mb-4"
-            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
+      <div className="max-w-xl mx-auto relative z-10">
+        {/* Title */}
+        <motion.div
+          className="text-center mb-10"
+          initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="font-headline text-3xl md:text-4xl text-primary mb-3">
             Ucapan &amp; Doa
-          </motion.h2>
-          <p className="text-secondary">Berikan ucapan selamat dan doa terbaik untuk ananda</p>
-        </div>
+          </h2>
+          <p className="text-secondary text-sm">
+            Berikan ucapan selamat dan doa terbaik untuk Izhan &amp; Rumaisha
+          </p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-          {/* Form */}
-          <motion.form
-            className="md:col-span-5 flex flex-col gap-8"
-            onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}
-            animate={shakeControls}
-          >
-            <div className="relative pt-4">
-              <span className="font-label text-[10px] tracking-widest uppercase text-secondary absolute top-0 left-0">Nama Lengkap</span>
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full bg-transparent border-t-0 border-x-0 border-b-2 border-outline-variant focus:border-primary focus:outline-none transition-all px-0 py-3 text-on-surface placeholder:text-outline/50"
-                placeholder="Nama Anda"
-                type="text"
-              />
-            </div>
-            <div className="relative pt-4">
-              <span className="font-label text-[10px] tracking-widest uppercase text-secondary absolute top-0 left-0">Pesan &amp; Doa</span>
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="w-full bg-transparent border-t-0 border-x-0 border-b-2 border-outline-variant focus:border-primary focus:outline-none transition-all px-0 py-3 text-on-surface placeholder:text-outline/50 resize-none"
-                placeholder="Tulis doa terbaik..."
-                rows={4}
-              />
-            </div>
-            <motion.button
-              type="submit"
-              className="bg-primary text-on-primary py-4 rounded-xl font-medium tracking-wide flex justify-center items-center gap-2 cursor-pointer hover:shadow-lg transition-shadow"
-              whileHover={prefersReduced ? {} : { scale: 1.05 }}
-              whileTap={prefersReduced ? {} : { scale: 0.95 }}
-            >
-              Kirim Ucapan
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" opacity="0.6">
-                <path d="M12,21 C12,21 3,13 3,8 A5,5,0,0,1,12,5 A5,5,0,0,1,21,8 C21,13 12,21 12,21Z" />
-              </svg>
-            </motion.button>
-          </motion.form>
+        {/* Form Card */}
+        <motion.div
+          className="bg-white/60 backdrop-blur-sm rounded-2xl shadow-lg p-8 max-w-[520px] mx-auto"
+          initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          animate={errorShake}
+        >
+          {formState === 'success' ? (
+            <SuccessCard prefersReduced={prefersReduced} />
+          ) : (
+            <div className="flex flex-col gap-5">
+              {/* Honeypot */}
+              <input type="text" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
-          {/* Wishes list */}
-          <div className="md:col-span-7 space-y-4 max-h-[500px] overflow-y-auto pr-2">
-            {wishes.map((w, i) => (
-              <motion.div
-                key={`${w.name}-${i}`}
-                className="relative p-6 rounded-2xl border border-outline-variant/10 shadow-sm transition-all hover:scale-[1.02]"
-                style={{ backgroundColor: PASTEL_COLORS[i % PASTEL_COLORS.length] + '40' }}
-                initial={prefersReduced ? {} : { rotateY: 90, opacity: 0 }}
-                whileInView={{ rotateY: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                viewport={{ once: true }}
+              {/* Name */}
+              <div>
+                <label className="font-label text-[10px] tracking-widest uppercase text-secondary mb-1.5 block">
+                  Nama Lengkap
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Nama Anda"
+                  required
+                  className="w-full border border-pink-200 rounded-xl px-4 py-3 bg-white/80 focus:ring-2 focus:ring-pink-300 focus:border-pink-300 outline-none transition-all duration-200 text-sm text-gray-700 placeholder-gray-400"
+                />
+              </div>
+
+              {/* Message */}
+              <div>
+                <label className="font-label text-[10px] tracking-widest uppercase text-secondary mb-1.5 block">
+                  Pesan &amp; Doa
+                </label>
+                <textarea
+                  name="message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value.slice(0, maxLength))}
+                  placeholder="Tulis ucapan atau doa untuk Izhan & Rumaisha..."
+                  rows={4}
+                  maxLength={maxLength}
+                  required
+                  className="w-full border border-pink-200 rounded-xl px-4 py-3 bg-white/80 focus:ring-2 focus:ring-pink-300 focus:border-pink-300 outline-none transition-all duration-200 text-sm text-gray-700 placeholder-gray-400 resize-none"
+                />
+                <p
+                  className={`text-right text-xs mt-1 ${
+                    message.length > 280 ? 'text-rose-500' : 'text-gray-400'
+                  }`}
+                >
+                  {message.length}/{maxLength}
+                </p>
+              </div>
+
+              {/* Submit Button */}
+              <motion.button
+                type="button"
+                onClick={handleSubmit}
+                disabled={formState === 'loading'}
+                className={`w-full bg-gradient-to-r from-pink-400 to-purple-400 text-white font-semibold py-3 px-6 rounded-xl cursor-pointer flex items-center justify-center transition-opacity ${
+                  formState === 'loading' ? 'opacity-60 cursor-not-allowed' : ''
+                }`}
+                whileHover={formState === 'loading' || prefersReduced ? {} : { scale: 1.02 }}
+                whileTap={formState === 'loading' || prefersReduced ? {} : { scale: 0.98 }}
               >
-                <CornerIcon type={i} />
-                <div className="flex justify-between items-start mb-3">
-                  <h5 className="font-headline text-primary text-lg">{w.name}</h5>
-                  <span className="text-[10px] text-outline uppercase tracking-wider">{w.time}</span>
-                </div>
-                <p className="text-on-surface-variant text-sm italic leading-relaxed">&ldquo;{w.message}&rdquo;</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+                {formState === 'loading' ? (
+                  <>
+                    Mengirim...
+                    <Spinner />
+                  </>
+                ) : (
+                  'Kirim Ucapan 🤍'
+                )}
+              </motion.button>
+
+              {/* Error message */}
+              {formState === 'error' && (
+                <motion.p
+                  className="text-rose-500 text-sm text-center"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                >
+                  Gagal mengirim. Silakan coba lagi.
+                </motion.p>
+              )}
+            </div>
+          )}
+        </motion.div>
       </div>
     </section>
   );
