@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "The Celestial Cradle | Aqiqah Izhan & Rumaisha",
+  title: "The Celestial Cradle | Aqiqah Izhan Faqqihhu Fiddin",
   description:
-    "Undangan Syukuran Aqiqah putra-putri Bapak Zakiul Fahmi Jailani & Ibu Kemala Putri Ayunda, Bapak Tri Rachmat Riski & Ibu Upita Anggunsuri",
+    "Undangan Syukuran Aqiqah putra Bapak Zakiul Fahmi Jailani & Ibu Kemala Putri Ayunda",
 };
 
 export default function RootLayout({
