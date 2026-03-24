@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
@@ -141,6 +142,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 body.locked { overflow: hidden; }
+
+.font-arabic {
+  font-family: 'Amiri', serif;
+}
 
 ::selection {
   background: var(--color-primary-container);

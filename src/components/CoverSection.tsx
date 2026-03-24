@@ -3,6 +3,7 @@ import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import BismillahCalligraphy from '@/components/BismillahCalligraphy';
 
 /* ── Inline SVG Elements ──────────────────── */
 function HotAirBalloon() {
@@ -135,14 +136,7 @@ export default function CoverSection({ onOpen }: CoverSectionProps) {
                 {/* Top gradient bar */}
                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-secondary to-tertiary opacity-30" />
 
-                {/* Envelope icon */}
-                <div className="relative mb-4">
-                  <svg width="64" height="48" viewBox="0 0 64 48" fill="none">
-                    <rect x="2" y="2" width="60" height="44" rx="6" fill="none" stroke="#735c00" strokeWidth="2" opacity="0.5" />
-                    <path d="M2,2 L32,28 L62,2" fill="none" stroke="#735c00" strokeWidth="2" opacity="0.5" />
-                  </svg>
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-error rounded-full animate-ping" />
-                </div>
+                <BismillahCalligraphy size="md" color="#735c00" className="mb-6" />
 
                 <p className="font-body text-secondary text-sm max-w-[280px] leading-relaxed">
                   Kami mengundang Anda untuk hadir dalam syukuran Aqiqah putra kami

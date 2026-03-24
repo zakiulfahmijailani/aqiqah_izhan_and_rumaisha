@@ -7,6 +7,7 @@ import BabyNamesSection from '@/components/BabyNamesSection';
 import EventDetailsSection from '@/components/EventDetailsSection';
 import MapsSection from '@/components/MapsSection';
 import RSVPSection from '@/components/RSVPSection';
+import BismillahCalligraphy from '@/components/BismillahCalligraphy';
 
 import MusicPlayer from '@/components/MusicPlayer';
 import WishesSection from '@/components/WishesSection';
@@ -29,11 +30,8 @@ export default function Home() {
           className="px-6 py-20 text-center relative z-10"
           style={{ background: 'linear-gradient(135deg, #FFF5F7, #F0FFF4)' }}
         >
-          {/* Arabic */}
-          <p className="text-2xl md:text-3xl mb-6 text-gray-700"
-            style={{ fontFamily: 'serif' }}>
-            بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم
-          </p>
+          {/* Default Bismillah Calligraphy */}
+          <BismillahCalligraphy size="lg" color="#735c00" className="mb-8" />
 
           {/* Hadith */}
           <blockquote className="italic text-gray-500 text-sm md:text-base mb-8 max-w-md mx-auto">
