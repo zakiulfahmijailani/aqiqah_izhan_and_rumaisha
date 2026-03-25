@@ -9,12 +9,12 @@ import MapsSection from '@/components/MapsSection';
 import RSVPSection from '@/components/RSVPSection';
 import BismillahCalligraphy from '@/components/BismillahCalligraphy';
 import { MuslimBabyBoy, BabyQuran, FloatingBalloons } from '@/components/BabyIllustrations';
-
 import MusicPlayer from '@/components/MusicPlayer';
 import WishesSection from '@/components/WishesSection';
 import ClosingSection from '@/components/ClosingSection';
 import WaveDivider from '@/components/WaveDivider';
 import BottomNavBar from '@/components/BottomNavBar';
+import CreditSection from '@/components/CreditSection';
 
 export default function Home() {
   const [coverOpen, setCoverOpen] = useState(false);
@@ -23,7 +23,6 @@ export default function Home() {
     <>
       <AnimatedBackground />
       {coverOpen && <ScrollProgressBar />}
-
       <CoverSection onOpen={() => setCoverOpen(true)} />
 
       {/* Main content — visible after cover opens */}
@@ -33,84 +32,41 @@ export default function Home() {
           className="px-6 py-20 text-center relative z-10"
           style={{ background: 'linear-gradient(135deg, #FFF5F7, #F0FFF4)' }}
         >
-          {/* Default Bismillah Calligraphy */}
           <BismillahCalligraphy size="lg" color="#735c00" className="mb-8" />
 
-          {/* Baby Illustrations */}
           <div className="flex justify-center items-end gap-6 my-6 opacity-70">
             <FloatingBalloons size={60} delay={0} />
             <MuslimBabyBoy size={80} delay={0.4} />
             <BabyQuran size={55} delay={0.8} />
           </div>
 
-          {/* Hadith */}
           <blockquote className="italic text-gray-500 text-sm md:text-base mb-8 max-w-md mx-auto">
             "Setiap anak tergadai dengan aqiqahnya."
             <br />
             <span className="text-xs not-italic">— HR. Ahmad, Abu Dawud, At-Tirmidzi</span>
           </blockquote>
 
-          {/* Main text */}
           <div className="max-w-xl mx-auto text-gray-600 text-sm md:text-base leading-relaxed space-y-4">
-            <p>
-              Dengan penuh rasa syukur kehadirat Allah Subhanahu wa Ta&apos;ala
-              atas segala nikmat dan karunia-Nya, kami mengumumkan
-              dengan penuh kebahagiaan kelahiran putra kami.
-            </p>
-            <p>
-              Sebagai wujud syukur dan mengikuti sunnah Rasulullah ﷺ,
-              kami akan menyelenggarakan syukuran Aqiqah untuk
-              putra tercinta kami.
-            </p>
-            <p>
-              Dengan rendah hati, kami mengundang Bapak/Ibu/Saudara/i
-              untuk hadir memberikan doa restu.
-              Kehadiran dan doa Anda adalah kebahagiaan terbesar bagi kami.
-            </p>
+            <p>Dengan penuh rasa syukur kehadirat Allah Subhanahu wa Ta&apos;ala atas segala nikmat dan karunia-Nya, kami mengumumkan dengan penuh kebahagiaan kelahiran putra kami.</p>
+            <p>Sebagai wujud syukur dan mengikuti sunnah Rasulullah ﷺ, kami akan menyelenggarakan syukuran Aqiqah untuk putra tercinta kami.</p>
+            <p>Dengan rendah hati, kami mengundang Bapak/Ibu/Saudara/i untuk hadir memberikan doa restu. Kehadiran dan doa Anda adalah kebahagiaan terbesar bagi kami.</p>
           </div>
         </section>
-        {/* Names Section */}
-        <section id="nama">
-          <BabyNamesSection />
-        </section>
 
+        <section id="nama"><BabyNamesSection /></section>
         <WaveDivider fillColor="#FFF8E7" variant="sine" />
-
-        {/* Event Details Section */}
-        <section id="acara">
-          <EventDetailsSection />
-        </section>
-
+        <section id="acara"><EventDetailsSection /></section>
         <WaveDivider fillColor="#E8F8FF" variant="hill" />
-
-        {/* Maps Section */}
-        <section id="lokasi">
-          <MapsSection />
-        </section>
-
+        <section id="lokasi"><MapsSection /></section>
         <WaveDivider fillColor="#e8f5f0" variant="double" />
-
-        {/* RSVP Section */}
-        <section id="rsvp">
-          <RSVPSection />
-        </section>
-
+        <section id="rsvp"><RSVPSection /></section>
         <WaveDivider fillColor="#F5F0FF" variant="sine" />
-
-        {/* Wishes Section */}
-        <section id="doa">
-          <WishesSection />
-        </section>
-
+        <section id="doa"><WishesSection /></section>
         <WaveDivider fillColor="#FFF5F7" variant="hill" />
-
-        {/* Closing Section */}
-        <section>
-          <ClosingSection />
-        </section>
+        <section><ClosingSection /></section>
+        <CreditSection />
       </main>
 
-      {/* Music player FAB */}
       {coverOpen && <MusicPlayer />}
       <BottomNavBar visible={coverOpen} />
     </>
