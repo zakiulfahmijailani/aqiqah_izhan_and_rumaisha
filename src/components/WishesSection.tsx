@@ -169,7 +169,6 @@ export default function WishesSection() {
       return;
     }
 
-    // Success
     if (data) {
       setWishes((prev) => [data as Wish, ...prev]);
     }
@@ -178,7 +177,6 @@ export default function WishesSection() {
     setSubmitState('idle');
     setSubmitError(false);
 
-    // Confetti
     confetti({
       spread: 180,
       particleCount: 150,
@@ -186,7 +184,6 @@ export default function WishesSection() {
       colors: ['#FFB7C5', '#B5EAD7', '#C7CEEA', '#FFD700'],
     });
 
-    // Toast
     setShowToast(true);
     setTimeout(() => setShowToast(false), 3000);
   }, [name, message, errorShake]);
@@ -212,7 +209,7 @@ export default function WishesSection() {
             Ucapan &amp; Doa
           </h2>
           <p className="text-secondary text-sm">
-            Berikan ucapan selamat dan doa terbaik untuk Izhan &amp; Rumaisha
+            Berikan ucapan selamat dan doa terbaik untuk Izhan
           </p>
         </motion.div>
 
@@ -251,7 +248,7 @@ export default function WishesSection() {
                 name="message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value.slice(0, MAX_LENGTH))}
-                placeholder="Tulis ucapan atau doa untuk Izhan & Rumaisha..."
+                placeholder="Tulis ucapan atau doa untuk Izhan..."
                 rows={4}
                 maxLength={MAX_LENGTH}
                 required
